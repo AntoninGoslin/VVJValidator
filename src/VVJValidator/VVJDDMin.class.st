@@ -36,11 +36,10 @@ VVJDDMin >> run: files asserting: aBlock [
 
 	| ddmin |
 	ddmin := AnonymousDDMin testing: [ :vvjInputFiles |	
-		| shuffled loader model |
-		shuffled := vvjInputFiles shuffle.
+		| loader model |
 		loader := VVJLoader new
 			jar: jar;
-			paths: files.
+			paths: vvjInputFiles.
 		model := loader load.
 		aBlock value: loader value: model. 
 	].
