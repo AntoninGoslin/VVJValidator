@@ -18,9 +18,10 @@ The loader will parse the file list with VerveineJ, and load it into the model.
 
 ```Smalltalk
 
-files := #(
-		'/home/user/path/to/your/java/file/file.java'
-		'/home/user/path/to/your/java/file/file2.java').
+files := #('/home/user/path/to/your/java/file/file.java'
+		'/home/user/path/to/your/java/file/file2.java'
+		'/home/user/path/to/your/java/file/fileN.java').
+
 jar := '/home/user/path/to/VVJ/jar/VerveineJ/app/build/libs/VerveineJ-Snapshot.jar' asFileReference .
 
 model := VVJLoader new
