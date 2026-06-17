@@ -13,6 +13,25 @@ Metacello new
 ## How to use VVJValidator
 
 ### Loader
+First of all, you need to load the files you want to compare and the .jar from VerveineJ.
+The loader will parse the file list with VerveineJ, and load it into the model.
+
+```Smalltalk
+
+files := #(
+		'/home/user/path/to/your/java/file/file.java'
+		'/home/user/path/to/your/java/file/file2.java').
+jar := '/home/user/path/to/VVJ/jar/VerveineJ/app/build/libs/VerveineJ-Snapshot.jar' asFileReference .
+
+model := VVJLoader new
+	jar: jar;
+	paths: files;
+	load.
+
+e := model entityNamed: 'org.apache.commons.collections.ArrayStack.ArrayStack()'.
+e incomingInvocations size
+```
+
 ### DDMin
 ### Shuffler
 
