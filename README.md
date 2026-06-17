@@ -10,7 +10,7 @@ Metacello new
 	load
 ```
 
-## How to use VVJValidator
+## How to use the VerveineJ Validator
 
 ### Loader
 First of all, you need to load the files you want to compare and the .jar from VerveineJ.
