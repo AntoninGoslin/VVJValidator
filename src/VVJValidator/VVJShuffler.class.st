@@ -71,7 +71,7 @@ VVJShuffler >> shuffle: files until: aBlock [
 	
 	maxTimes = 0 ifTrue: [ ^ self ok ].
 	
-	shuffled := files shuffle.
+	shuffled := files shuffled.
 	
 	('shuffle.log') asFileReference writeStreamDo: [ :str |
 		shuffled do: [ :e | str nextPutAll: e; cr ].
