@@ -11,7 +11,9 @@ Metacello new
 ```
 
 ## How to use the VerveineJ Validator
+TODO
 
+## How it works ?
 ### Load a model with the Loader
 First of all, you need to load the files you want to compare and the .jar from VerveineJ.
 The loader will parse the file list with VerveineJ, and load it into a model.
