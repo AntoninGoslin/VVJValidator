@@ -15,7 +15,18 @@ Metacello new
 The VVJShuffler will randomize the order of files passed to VerveineJ to check if the parsing order influences the model's construction:
 
 ```Smalltalk
-TODO
+jar := '/home/user/VerveineJ/app/build/libs/VerveineJ-Snapshot.jar' asFileReference.
+
+files := #(
+'/home/user/commons_collections/commons-collections-3.1-src/src/java/org/apache/commons/collections/ArrayStack.java'
+'/home/user/commons_collections/commons-collections-3.1-src/src/java/org/apache/commons/collections/MapUtils.java'
+).
+
+shufflerResult := VVJShuffler new
+	jar: jar;
+	shuffleUntilDiff: files.
+
+shufflerResult inspect.
 ```
 
 ## How it works ?
