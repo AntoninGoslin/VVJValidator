@@ -1,6 +1,6 @@
 # VVJValidator
 
-A tool to validate and test VerveineJ models creations using Delta Debugging and file shuffling.
+A tool to validate and test VerveineJ model creations using Delta Debugging and file shuffling.
 
 ## Baseline
 ```Smalltalk
@@ -29,7 +29,7 @@ shufflerResult := VVJShuffler new
 shufflerResult inspect.
 ```
 
-## How it works ?
+## How does it work?
 ### Load a model with the Loader
 First of all, you need to load the files you want to compare and the .jar from VerveineJ.
 The loader will parse the file list with VerveineJ, and load it into a model.
@@ -52,7 +52,7 @@ e incomingInvocations size
 ```
 
 ### Isolate a bug with VVJDDMin
-We uses the Delta Debugging (DDMin) algorithm to isolate the minimal set of files reproducing a specific bug in the model. 
+We use the Delta Debugging (DDMin) algorithm to isolate the minimal set of files reproducing a specific bug in the model. 
 Find below an example with `MapUtils` and `ArrayStack` from Commons Collections:
 
 ```Smalltalk
