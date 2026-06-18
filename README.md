@@ -42,7 +42,8 @@ jar := '/home/user/VerveineJ/app/build/libs/VerveineJ-Snapshot.jar' asFileRefere
 
 files := #(
 '/home/user/commons_collections/commons-collections-3.1-src/src/java/org/apache/commons/collections/ArrayStack.java'
-'/home/user/commons_collections/commons-collections-3.1-src/src/java/org/apache/commons/collections/MapUtils.java' ).
+'/home/user/commons_collections/commons-collections-3.1-src/src/java/org/apache/commons/collections/MapUtils.java'
+).
 
 minResult := VVJDDMin new
 	             jar: jar;
