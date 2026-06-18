@@ -11,7 +11,12 @@ Metacello new
 ```
 
 ## How to use the VerveineJ Validator
+### Find parsing order issues with VVJShuffler
+The VVJShuffler will randomize the order of files passed to VerveineJ to check if the parsing order influences the model's construction:
+
+```Smalltalk
 TODO
+```
 
 ## How it works ?
 ### Load a model with the Loader
@@ -61,7 +66,3 @@ minResult := VVJDDMin new
 									             as isStub or: [ "But if they are there, then ArrayStack should have 2 incoming invocations!"
 											             as incomingInvocations size = 2 ]]]].
 ```
-
-### Shuffler
-
-# WIP
