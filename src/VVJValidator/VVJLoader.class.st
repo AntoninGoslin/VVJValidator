@@ -54,8 +54,11 @@ VVJLoader >> jar: anObject [
 { #category : 'parsing' }
 VVJLoader >> load [
 
+	| model |
 	self parse.
-	^ self import
+	model := self import.
+	outputFilePath ensureDelete. "we delete the model after use"
+	^ model
 ]
 
 { #category : 'accessing' }
