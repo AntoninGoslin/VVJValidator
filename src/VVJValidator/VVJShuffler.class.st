@@ -68,23 +68,26 @@ VVJShuffler >> ok [
 VVJShuffler >> shuffle: files until: aBlock [
 
 	| shuffled loader model |
-	
 	maxTimes = 0 ifTrue: [ ^ self ok ].
-	
+
 	shuffled := files shuffled.
-	
-	('shuffle.log') asFileReference writeStreamDo: [ :str |
-		shuffled do: [ :e | str nextPutAll: e; cr ].
-	].
+
+	'shuffle.log' asFileReference writeStreamDo: [ :str |
+			shuffled do: [ :e |str nextPutAll: e; cr ] ].
+		
 	loader := VVJLoader new
-		jar: jar;
-		paths: shuffled.
-	model := loader load.
-	
-	"Should stop?"
-	(aBlock value: loader value: model)
-		ifTrue: [ ^ self offending: model ].
-	
+		          jar: jar;
+		          paths: shuffled.
+
+	[
+		model := loader load.
+		"Should stop?"
+		(aBlock value: loader value: model) ifTrue: [
+			^ self offending: model ] ]
+		on: Error
+		do: [ :ex | "when we have an error, we should return it. Nil = crash"
+			^ self offending: nil ].
+
 	"Ok, once more"
 	maxTimes := maxTimes - 1.
 	^ self shuffle: shuffled until: aBlock
