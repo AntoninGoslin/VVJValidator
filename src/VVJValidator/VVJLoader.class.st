@@ -80,25 +80,27 @@ VVJLoader >> parse [
 	self validate.
 
 	OSSUnixSubprocess new
-			command: '/usr/bin/java';
-			arguments: {
+		command: '/usr/bin/java';
+		arguments: {
 				'-jar'.
 				jar fullName.
 				'-format'.
 				'json'.
 				'-o'.
 				outputFilePath fullName.
-				'-jdkMode'.
+				"'-jdkMode'."
+				"'-1.7'."
+				'-sysLibPath'.
+				'/home/niwix/Téléchargements/rt.jar'.
 				'-1.7'.
-			}, paths;
-			redirectStdout;
-			redirectStderr;
-			runAndWaitPollingEvery: (Delay forMilliseconds: 50)
-			retrievingStreams: true onExitDo: [ :command :outString :errString | 
-				err := errString ].
-			
-	err ifNotEmpty: [ 
-		self error: 'Errors while parsing: ', err ].
+				'-strict' } , paths;
+		redirectStdout;
+		redirectStderr;
+		runAndWaitPollingEvery: (Delay forMilliseconds: 50)
+		retrievingStreams: true
+		onExitDo: [ :command :outString :errString | err := errString ].
+
+	err ifNotEmpty: [ self error: 'Errors while parsing: ' , err ]
 ]
 
 { #category : 'accessing' }
