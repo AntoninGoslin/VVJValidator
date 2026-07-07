@@ -88,8 +88,6 @@ VVJLoader >> parse [
 				'json'.
 				'-o'.
 				outputFilePath fullName.
-				"'-jdkMode'."
-				"'-1.7'."
 				'-sysLibPath'.
 				'/home/niwix/Téléchargements/rt.jar'.
 				'-1.7'.
