@@ -90,22 +90,25 @@ VVJLoader >> outputFilePath: anObject [
 { #category : 'parsing' }
 VVJLoader >> parse [
 
-	| err |
+	| err baseArgs allArgs |
 	self validate.
+
+	baseArgs := {
+		            '-jar'.
+		            jar fullName.
+		            '-format'.
+		            'json'.
+		            '-o'.
+		            outputFilePath fullName.
+		            '-sysLibPath'.
+		            '/home/niwix/Téléchargements/rt.jar'.
+		            '-1.7' }.
+
+	allArgs := baseArgs , options , paths.
 
 	OSSUnixSubprocess new
 		command: '/usr/bin/java';
-		arguments: {
-				'-jar'.
-				jar fullName.
-				'-format'.
-				'json'.
-				'-o'.
-				outputFilePath fullName.
-				'-sysLibPath'.
-				'/home/niwix/Téléchargements/rt.jar'.
-				'-1.7'.
-				} , paths;
+		arguments: allArgs;
 		redirectStdout;
 		redirectStderr;
 		runAndWaitPollingEvery: (Delay forMilliseconds: 50)
