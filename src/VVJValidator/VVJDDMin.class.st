@@ -48,8 +48,8 @@ VVJDDMin >> run: files asserting: aBlock [
 				         model := loader load.
 				         isOK := aBlock value: loader value: model ]
 			
-				         on: Error do: [ :ex | "crash case, we isolate the file"
-				         isOK := true ].
+				         on: Error do: [ :ex | "crash case, we don't keep the file"
+				         isOK := false ].
 			         isOK ].
 	^ ddmin reduce: files
 ]
