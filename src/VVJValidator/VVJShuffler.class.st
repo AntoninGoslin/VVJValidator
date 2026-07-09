@@ -77,7 +77,8 @@ VVJShuffler >> shuffle: files until: aBlock [
 		
 	loader := VVJLoader new
 		          jar: jar;
-		          paths: shuffled.
+		          paths: shuffled;
+					 options: #('-strict').
 
 	[
 		model := loader load.
