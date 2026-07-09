@@ -33,11 +33,12 @@ VVJLoader >> import [
 	^ outputFilePath readStreamDo: [ :st | FamixJavaModel new importFromJSONStream: st ].
 ]
 
-{ #category : 'parsing' }
+{ #category : 'initialization' }
 VVJLoader >> initialize [
 
 	super initialize.
-	outputFilePath := (FileSystem workingDirectory / ('output-', UUID new asString)) , 'json'
+	outputFilePath := (FileSystem workingDirectory / ('output-', UUID new asString)) , 'json'.
+	options := #().
 ]
 
 { #category : 'accessing' }
