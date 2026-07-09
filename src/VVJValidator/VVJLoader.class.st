@@ -20,7 +20,8 @@ Class {
 	#instVars : [
 		'jar',
 		'outputFilePath',
-		'paths'
+		'paths',
+		'options'
 	],
 	#category : 'VVJValidator',
 	#package : 'VVJValidator'
@@ -62,6 +63,18 @@ VVJLoader >> load [
 ]
 
 { #category : 'accessing' }
+VVJLoader >> options [
+
+	^ options
+]
+
+{ #category : 'accessing' }
+VVJLoader >> options: anArray [
+
+	options := anArray
+]
+
+{ #category : 'accessing' }
 VVJLoader >> outputFilePath [
 
 	^ outputFilePath
@@ -91,7 +104,7 @@ VVJLoader >> parse [
 				'-sysLibPath'.
 				'/home/niwix/Téléchargements/rt.jar'.
 				'-1.7'.
-				'-strict' } , paths;
+				} , paths;
 		redirectStdout;
 		redirectStderr;
 		runAndWaitPollingEvery: (Delay forMilliseconds: 50)
