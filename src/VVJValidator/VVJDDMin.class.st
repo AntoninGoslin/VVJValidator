@@ -35,21 +35,13 @@ VVJDDMin >> jar: aJarPath [
 VVJDDMin >> run: files asserting: aBlock [
 
 	| ddmin |
-	ddmin := AnonymousDDMin testing: [ :vvjInputFiles |
-			         | loader model isOK |
-			         loader := VVJLoader new
-				                   jar: jar;
-				                   paths: vvjInputFiles.
-
-			         isOK := false.
-
-			         "catch the error of VVJ"
-			         [ "non crash case"
-				         model := loader load.
-				         isOK := aBlock value: loader value: model ]
-			
-				         on: Error do: [ :ex | "crash case, we don't keep the file"
-				         isOK := false ].
-			         isOK ].
+	ddmin := AnonymousDDMin testing: [ :vvjInputFiles |	
+		| loader model |
+		loader := VVJLoader new
+			jar: jar;
+			paths: vvjInputFiles.
+		model := loader load.
+		aBlock value: loader value: model. 
+	].
 	^ ddmin reduce: files
 ]
