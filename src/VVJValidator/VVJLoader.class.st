@@ -20,7 +20,8 @@ Class {
 	#instVars : [
 		'jar',
 		'outputFilePath',
-		'paths'
+		'paths',
+		'options'
 	],
 	#category : 'VVJValidator',
 	#package : 'VVJValidator'
@@ -32,11 +33,12 @@ VVJLoader >> import [
 	^ outputFilePath readStreamDo: [ :st | FamixJavaModel new importFromJSONStream: st ].
 ]
 
-{ #category : 'parsing' }
+{ #category : 'initialization' }
 VVJLoader >> initialize [
 
 	super initialize.
-	outputFilePath := (FileSystem workingDirectory / ('output-', UUID new asString)) , 'json'
+	outputFilePath := (FileSystem workingDirectory / ('output-', UUID new asString)) , 'json'.
+	options := #().
 ]
 
 { #category : 'accessing' }
@@ -54,8 +56,23 @@ VVJLoader >> jar: anObject [
 { #category : 'parsing' }
 VVJLoader >> load [
 
+	| model |
 	self parse.
-	^ self import
+	model := self import.
+	outputFilePath ensureDelete. "we delete the model after use"
+	^ model
+]
+
+{ #category : 'accessing' }
+VVJLoader >> options [
+
+	^ options
+]
+
+{ #category : 'accessing' }
+VVJLoader >> options: anArray [
+
+	options := anArray
 ]
 
 { #category : 'accessing' }
@@ -73,29 +90,32 @@ VVJLoader >> outputFilePath: anObject [
 { #category : 'parsing' }
 VVJLoader >> parse [
 
-	| err |
+	| err baseArgs allArgs |
 	self validate.
 
+	baseArgs := {
+		            '-jar'.
+		            jar fullName.
+		            '-format'.
+		            'json'.
+		            '-o'.
+		            outputFilePath fullName.
+		            '-sysLibPath'.
+		            '/home/niwix/Téléchargements/rt.jar'.
+		            '-1.7' }.
+
+	allArgs := baseArgs , options , paths.
+
 	OSSUnixSubprocess new
-			command: '/usr/bin/java';
-			arguments: {
-				'-jar'.
-				jar fullName.
-				'-format'.
-				'json'.
-				'-o'.
-				outputFilePath fullName.
-				'-jdkMode'.
-				'-1.7'.
-			}, paths;
-			redirectStdout;
-			redirectStderr;
-			runAndWaitPollingEvery: (Delay forMilliseconds: 50)
-			retrievingStreams: true onExitDo: [ :command :outString :errString | 
-				err := errString ].
-			
-	err ifNotEmpty: [ 
-		self error: 'Errors while parsing: ', err ].
+		command: '/usr/bin/java';
+		arguments: allArgs;
+		redirectStdout;
+		redirectStderr;
+		runAndWaitPollingEvery: (Delay forMilliseconds: 50)
+		retrievingStreams: true
+		onExitDo: [ :command :outString :errString | err := errString ].
+
+	err ifNotEmpty: [ self error: 'Errors while parsing: ' , err ]
 ]
 
 { #category : 'accessing' }
