@@ -27,6 +27,12 @@ Class {
 	#package : 'VVJValidator'
 }
 
+{ #category : 'cleaning' }
+VVJLoader >> cleanUp [
+
+	outputFilePath ensureDelete "we delete the model after use"
+]
+
 { #category : 'parsing' }
 VVJLoader >> import [
 
@@ -59,7 +65,6 @@ VVJLoader >> load [
 	| model |
 	self parse.
 	model := self import.
-	outputFilePath ensureDelete. "we delete the model after use"
 	^ model
 ]
 
