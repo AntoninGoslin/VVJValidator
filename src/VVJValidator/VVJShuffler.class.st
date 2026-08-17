@@ -84,9 +84,14 @@ VVJShuffler >> shuffle: files until: aBlock [
 		model := loader load.
 		"Should stop?"
 		(aBlock value: loader value: model) ifTrue: [
-			^ self offending: model ] ]
+			^ self offending: model ].
+		"the model is OK, we can delete this one"
+		loader cleanUp.
+	]
+		
 		on: Error
 		do: [ :ex | "when we have an error, we should return it. Nil = crash"
+			loader cleanUp.
 			^ self offending: nil ].
 
 	"Ok, once more"
