@@ -36,12 +36,14 @@ VVJDDMin >> run: files asserting: aBlock [
 
 	| ddmin |
 	ddmin := AnonymousDDMin testing: [ :vvjInputFiles |	
-		| loader model |
+		| loader model result |
 		loader := VVJLoader new
 			jar: jar;
 			paths: vvjInputFiles.
 		model := loader load.
-		aBlock value: loader value: model. 
+		result := aBlock value: loader value: model.
+		loader cleanUp. "we don't need this model anymore"
+		result 
 	].
 	^ ddmin reduce: files
 ]
