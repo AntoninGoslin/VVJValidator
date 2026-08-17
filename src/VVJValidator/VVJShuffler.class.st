@@ -98,16 +98,24 @@ VVJShuffler >> shuffle: files until: aBlock [
 VVJShuffler >> shuffleUntilDiff: files [
 
 	^ self shuffle: files until: [ :loader :model |
-		| areEqual |
-		firstModel ifNil: [ firstModel := model ].
+		| areEqual destination1 destination2|
+		
+		destination1 := 'offendingModel1.json' asFileReference.
+		destination2 := 'offendingModel2.json' asFileReference.
+		
+		firstModel ifNil: [
+				firstModel := model.
+				destination1 ensureDelete 
+				loader outputFilePath copyTo: destination1 ].
+			
 		areEqual := FamixSimpleDiff new
 			compareModel: firstModel
 			to: model.
 			
 		"we keep the offending models when we find someone"
 		areEqual not ifTrue: [ 
-			'offendingModel1.json' asFileReference writeStreamDo: [ :st | firstModel exportToJSONStream: st ].
-			'offendingModel2.json' asFileReference writeStreamDo: [ :st | model exportToJSONStream: st ].
+			destination2 ensureDelete.
+			loader outputFilePath moveTo: destination2.
 		].
 	
 		areEqual not ]
