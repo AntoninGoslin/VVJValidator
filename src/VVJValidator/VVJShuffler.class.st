@@ -110,7 +110,7 @@ VVJShuffler >> shuffleUntilDiff: files [
 		
 		firstModel ifNil: [
 				firstModel := model.
-				destination1 ensureDelete 
+				destination1 ensureDelete.
 				loader outputFilePath copyTo: destination1 ].
 			
 		areEqual := FamixSimpleDiff new
