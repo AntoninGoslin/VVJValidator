@@ -103,10 +103,13 @@ VVJShuffler >> shuffle: files until: aBlock [
 VVJShuffler >> shuffleUntilDiff: files [
 
 	^ self shuffle: files until: [ :loader :model |
-		| areEqual destination1 destination2|
+		| areEqual destination1 destination2 directory|
 		
-		destination1 := 'offendingModel1.json' asFileReference.
-		destination2 := 'offendingModel2.json' asFileReference.
+		directory := 'offending_models' asFileReference.
+		directory ensureCreateDirectory.
+		
+		destination1 := directory / 'offendingModel1.json'.
+		destination2 := directory / 'offendingModel2.json'.
 		
 		firstModel ifNil: [
 				firstModel := model.
