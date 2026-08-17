@@ -103,5 +103,12 @@ VVJShuffler >> shuffleUntilDiff: files [
 		areEqual := FamixSimpleDiff new
 			compareModel: firstModel
 			to: model.
+			
+		"we keep the offending models when we find someone"
+		areEqual not ifTrue: [ 
+			'offendingModel1.json' asFileReference writeStreamDo: [ :st | firstModel exportToJSONStream: st ].
+			'offendingModel2.json' asFileReference writeStreamDo: [ :st | model exportToJSONStream: st ].
+		].
+	
 		areEqual not ]
 ]
