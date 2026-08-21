@@ -11,7 +11,7 @@ BaselineOfVVJValidator >> baseline: spec [
 	<baseline>
 	spec baseline: 'DDMin' with: [
 			spec repository:
-				'github://Alamvic/DDmin:main' ].
+				'github://Alamvic/DDmin' ].
 
 	spec baseline: 'OSSubprocess' with: [
 			spec repository:
